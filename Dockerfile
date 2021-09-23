@@ -1,7 +1,7 @@
 # Original notebook created by the Jupyter Development Team
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
-FROM debian:bullseye-slim@sha256:e3ed4be20c22a1358020358331d177aa2860632f25b21681d79204ace20455a6
+FROM debian:bullseye@sha256:08db48d59c0a91afb802ebafc921be3154e200c452e4d0b19634b426b03e0e25
 
 # github metadata
 LABEL org.opencontainers.image.source=https://github.com/uwcip/jupyterhub-test-notebook
@@ -52,7 +52,7 @@ RUN mkdir -p /data && ln -sf /mnt/nfs/jupiter/shared /data/shared && ln -sf /mnt
 RUN apt-get -q update && apt-get -y upgrade && \
     apt-get install -yq --no-install-recommends \
       # ---- cip bastion host equivalencies
-      procps psmisc htop screen socat \
+      procps psmisc htop screen socat file man manpages \
       nano vim vim-scripts bash zsh git git-lfs psmisc tzdata zip unzip bzip2 gzrt jq make less sqlite3 patch \
       apt-transport-https gnupg-agent gnupg software-properties-common openssh-client \
       python3-dev python3-venv python3-wheel python3-pip python3-setuptools python3-tenacity python3-ujson python3-tabulate python3-tk pycodestyle python3-requests \
@@ -141,7 +141,7 @@ RUN wget --quiet "https://github.com/conda-forge/miniforge/releases/download/${m
 # generate a notebook server config
 # cleanup temporary files
 # correct permissions
-RUN conda install --quiet --yes "notebook=6.4.3" "jupyterhub=1.4.2" "jupyterlab=3.1.12" && \
+RUN conda install --quiet --yes "notebook=6.4.4" "jupyterhub=1.4.2" "jupyterlab=3.1.13" && \
     conda clean --all -f -y && \
     npm cache clean --force && \
     jupyter notebook --generate-config && \
